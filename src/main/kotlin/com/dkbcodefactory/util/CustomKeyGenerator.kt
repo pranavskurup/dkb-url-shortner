@@ -1,9 +1,14 @@
 package com.dkbcodefactory.util
 
+import org.springframework.beans.factory.config.ConfigurableBeanFactory
+import org.springframework.context.annotation.Scope
+import org.springframework.stereotype.Component
 import java.util.*
 import java.util.stream.Collectors
 import java.util.stream.IntStream
 
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 class CustomKeyGenerator(private val shortKeyLength: Int) : KeyGenerator {
     companion object {
         val CHARACTERS = charArrayOf(

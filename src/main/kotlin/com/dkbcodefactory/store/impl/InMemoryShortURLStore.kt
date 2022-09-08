@@ -4,10 +4,15 @@ import com.dkbcodefactory.exception.KeyNotFoundException
 import com.dkbcodefactory.exception.URLAlreadyExists
 import com.dkbcodefactory.store.KeyStore
 import com.dkbcodefactory.store.ShortURLStore
+import org.springframework.beans.factory.config.ConfigurableBeanFactory
+import org.springframework.context.annotation.Scope
+import org.springframework.stereotype.Component
 import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.concurrent.ConcurrentHashMap
 
+@Component
+@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 class InMemoryShortURLStore(private val keyStore: KeyStore) : ShortURLStore {
     companion object {
         private val KEY_URL_STORE = ConcurrentHashMap<String, String>()
