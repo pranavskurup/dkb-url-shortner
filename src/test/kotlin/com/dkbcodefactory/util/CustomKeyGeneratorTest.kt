@@ -1,7 +1,7 @@
 package com.dkbcodefactory.util
 
+import org.junit.Assert
 import org.junit.jupiter.api.Test
-import org.springframework.util.Assert
 
 internal class CustomKeyGeneratorTest {
 
@@ -9,36 +9,39 @@ internal class CustomKeyGeneratorTest {
     fun generateKeyTest() {
         val customKeyGenerator = CustomKeyGenerator(10)
         val result = customKeyGenerator.generateKey()
-        Assert.notNull(result, "Expecting non null string")
-        result.trim().let { Assert.isTrue(it.isNotEmpty(), "Expecting non empty string") }
+        Assert.assertNotNull("Expecting non null string", result)
+        result.trim().let { Assert.assertTrue("Expecting non empty string", it.isNotEmpty()) }
     }
 
     @Test
     fun generateKeysTest() {
         val customKeyGenerator = CustomKeyGenerator(10)
         val result = customKeyGenerator.generateKeys(10)
-        Assert.notNull(result, "Expecting non null list")
-        Assert.isTrue(result.size == 10, "Expecting list with specified count")
+        Assert.assertNotNull("Expecting non null list", result)
+        Assert.assertTrue("Expecting list with specified count", result.size == 10)
         result.forEach {
-            Assert.isTrue(it.trim().isNotEmpty(), "Expecting non empty string")
+            Assert.assertTrue("Expecting non empty string", it.trim().isNotEmpty())
 
         }
     }
 
     @Test
     fun getRandomCharacterTest() {
-        Assert.isTrue(
-            CustomKeyGenerator.CHARACTERS.size == CustomKeyGenerator.UPPER_BOUND_FOR_RANDOM, "Both Upper bound" +
-                    " and length of characters should be same"
+        Assert.assertTrue(
+            "Both Upper bound" +
+                    " and length of characters should be same",
+            CustomKeyGenerator.CHARACTERS.size == CustomKeyGenerator.UPPER_BOUND_FOR_RANDOM
         )
-        Assert.isTrue(
+        Assert.assertTrue(
+            "Duplicate characters in variable 'CHARACTERS'",
             HashSet<Char>(CustomKeyGenerator.CHARACTERS.asList()).size == CustomKeyGenerator
-                .UPPER_BOUND_FOR_RANDOM, "Duplicate characters in variable 'CHARACTERS'"
+                .UPPER_BOUND_FOR_RANDOM
         )
 
-        Assert.isTrue(
-            CustomKeyGenerator.CHARACTERS.contains(CustomKeyGenerator.getRandomCharacter()), "Generated " +
-                    "character is in the variable 'CHARACTERS'"
+        Assert.assertTrue(
+            "Generated " +
+                    "character is in the variable 'CHARACTERS'",
+            CustomKeyGenerator.CHARACTERS.contains(CustomKeyGenerator.getRandomCharacter())
         )
     }
 }

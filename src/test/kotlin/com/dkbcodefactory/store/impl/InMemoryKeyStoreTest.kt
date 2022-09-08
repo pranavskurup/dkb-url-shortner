@@ -2,10 +2,10 @@ package com.dkbcodefactory.store.impl
 
 import com.dkbcodefactory.exception.KeyGenerationException
 import com.dkbcodefactory.util.KeyGenerator
+import org.junit.Assert
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito
-import org.springframework.util.Assert
 import java.util.stream.Collectors
 
 internal class InMemoryKeyStoreTest {
@@ -19,8 +19,8 @@ internal class InMemoryKeyStoreTest {
         Mockito.`when`(keyGenerator.generateKeys(10)).thenReturn(inputData)
         val keyStore = InMemoryKeyStore(keyGenerator, 10)
         val key = keyStore.getKey()
-        Assert.notNull(key, "Short key string from store is null")
-        Assert.isTrue(key == inputData.first(), "Short key string from store is empty")
+        Assert.assertNotNull("Short key string from store is null", key)
+        Assert.assertTrue("Short key string from store is empty", key == inputData.first())
     }
 
 
@@ -33,11 +33,11 @@ internal class InMemoryKeyStoreTest {
         Mockito.`when`(keyGenerator.generateKeys(10)).thenReturn(inputData)
         val keyStore = InMemoryKeyStore(keyGenerator, 10)
         val values = keyStore.getStoreValues()
-        Assert.notNull(values, "values in store is null")
+        Assert.assertNotNull("values in store is null", values)
         val list = values.toStream().collect(Collectors.toSet())
-        Assert.notNull(list, "values in store is null")
-        Assert.isTrue(!list?.isEmpty()!!, "values in store is empty")
-        Assert.isTrue(inputData == list, "values in store is empty")
+        Assert.assertNotNull("values in store is null", list)
+        Assert.assertTrue("values in store is empty", !list?.isEmpty()!!)
+        Assert.assertTrue("values in store is empty", inputData == list)
     }
 
     @Test
@@ -50,7 +50,7 @@ internal class InMemoryKeyStoreTest {
             val keyStore = InMemoryKeyStore(keyGenerator, 10)
             keyStore.getKey()
         }
-        Assert.isTrue(error.message == "Error populating cache", "Error message is incorrect")
+        Assert.assertTrue("Error message is incorrect", error.message == "Error populating cache")
 
     }
 
@@ -62,11 +62,11 @@ internal class InMemoryKeyStoreTest {
         Mockito.`when`(keyGenerator.generateKeys(10)).thenReturn(inputData)
         val keyStore = InMemoryKeyStore(keyGenerator, 10)
         val values = keyStore.getStoreValues()
-        Assert.notNull(values, "values in store is null")
+        Assert.assertNotNull("values in store is null", values)
         val list = values.toStream().collect(Collectors.toSet())
-        Assert.notNull(list, "values in store is null")
-        Assert.isTrue(!list?.isEmpty()!!, "values in store is empty")
-        Assert.isTrue(inputData == list, "values in store is empty")
+        Assert.assertNotNull("values in store is null", list)
+        Assert.assertTrue("values in store is empty", !list?.isEmpty()!!)
+        Assert.assertTrue("values in store is empty", inputData == list)
 
 
         InMemoryKeyStore.clear()
@@ -79,6 +79,6 @@ internal class InMemoryKeyStoreTest {
             val keyStore = InMemoryKeyStore(keyGenerator, 10)
             keyStore.getKey()
         }
-        Assert.isTrue(error.message == "Error populating cache", "Error message is incorrect")
+        Assert.assertTrue("Error message is incorrect", error.message == "Error populating cache")
     }
 }
