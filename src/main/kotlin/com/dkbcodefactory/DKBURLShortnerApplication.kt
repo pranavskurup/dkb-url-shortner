@@ -9,5 +9,5 @@ import org.springframework.web.reactive.config.EnableWebFlux
 class DKBURLShortnerApplication
 
 fun main(args: Array<String>) {
-	runApplication<DKBURLShortnerApplication>(*args)
+    runApplication<DKBURLShortnerApplication>(*args)
 }

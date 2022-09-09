@@ -1,5 +1,7 @@
 package com.dkbcodefactory.vo
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import lombok.Data
 
-class ShortUrlCreatedVO(val url: String, @JsonProperty("short-url") shortUrl: String)
+@Data
+class ShortUrlCreatedVO(var url: String, @JsonProperty("short-url") var shortUrl: String)

@@ -1,11 +1,22 @@
 package com.dkbcodefactory.service.impl
 
+import com.dkbcodefactory.exception.InvalidUrlException
 import com.dkbcodefactory.repo.URLShortnerRepository
 import com.dkbcodefactory.service.UrlShortnerService
+import org.apache.commons.validator.routines.UrlValidator
+import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 
-class UrlShortnerServiceImpl(private val urlShortnerRepository: URLShortnerRepository) : UrlShortnerService {
+@Service
+class UrlShortnerServiceImpl(
+    private val urlShortnerRepository: URLShortnerRepository,
+    private val urlValidator: UrlValidator
+) :
+    UrlShortnerService {
     override fun createShortUrl(url: String): Mono<String> {
+        if (!urlValidator.isValid(url)) {
+            return Mono.error(InvalidUrlException(url))
+        }
         return urlShortnerRepository.addUrl(url)
     }
 
