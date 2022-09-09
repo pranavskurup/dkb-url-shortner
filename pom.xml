@@ -29,24 +29,19 @@
             </plugin>
             <plugin>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <configuration>
-                    <append>true</append>
-                    <output>file</output>
-                    <skip>${maven.test.skip}</skip>
-                </configuration>
                 <executions>
                     <execution>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                        <id>jacoco-initialize</id>
+                        <id>prepare-agent</id>
                     </execution>
                     <execution>
                         <goals>
                             <goal>report</goal>
                         </goals>
-                        <id>jacoco-site</id>
-                        <phase>verify</phase>
+                        <id>report</id>
+                        <phase>test</phase>
                     </execution>
                 </executions>
                 <groupId>org.jacoco</groupId>
